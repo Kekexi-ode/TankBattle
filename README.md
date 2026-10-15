@@ -1,32 +1,113 @@
 # TankBattle
 
-这是 TankBattle（坦克大战）的仓库，包含你的游戏源码与资源。
+一个基于 Python + Pygame 的坦克大战小游戏，内容包括：
+- 玩家控制自己的坦克移动和射击
+- 敌方坦克会随机生成并持续攻击
+- 可选择关卡、暂停、重新开始、退出游戏
+- 具有砖墙、铁墙、水池等地形元素
+- 采用精灵系统（pygame.sprite）组织游戏对象
 
-快速运行（在本地）：
-1. 克隆仓库并进入目录：
-   git clone git@github.com:Kekexi-ode/TankBattle.git
-   cd TankBattle
+这个项目最初是一个单文件的小游戏作品，后续我已按 GitHub 仓库的方式整理，并保留了原始游戏代码与资源文件，方便你继续扩展、修改或二次开发。
 
-2. 推荐创建并激活虚拟环境：
-   python -m venv .venv
-   # macOS / Linux
-   source .venv/bin/activate
-   # Windows (PowerShell)
-   .venv\Scripts\Activate.ps1
+## 项目状态
 
-3. 安装依赖：
-   python -m pip install --upgrade pip
-   pip install pygame
+当前仓库包含：
+- 游戏主逻辑：`坦克大战/main.py`
+- 资源文件：图像（如 `MyTank.png`、`BadTank.png`、`砖墙1.png` 等）
+- 其它辅助模块：`sprite.py`、`level.py`、`landform.py`、`landform_sprite.py`
+- 公开仓库入口：GitHub 代码托管
 
-4. 运行游戏（两种方式任选其一）：
-   # 直接运行你上传的脚本：
-   python "坦克大战/main.py"
+## 运行方式
 
-   # 或者用模块入口（推荐）：
-   python -m tankbattle
+在本地运行前，请先确保已安装 Python 3.10+ 和 Pygame：
 
-说明：为了避免改动你现有的文件，我添加了一个包装模块（`tankbattle`），它会在运行时调用你上传的 `坦克大战/main.py`。
+```bash
+python -m venv .venv
+# macOS / Linux
+source .venv/bin/activate
+# Windows PowerShell
+# .venv\Scripts\Activate.ps1
 
-如果你愿意，我也可以把代码整理为标准的包结构（把源码移到 `src/tankbattle/` 并把资源放到 `tankbattle/images/`），这样更利于发布与安装；这一步会修改很多文件，提交前我会先把将要移动的文件列表发给你确认。
+python -m pip install --upgrade pip
+pip install pygame
+```
 
-如果运行时遇到错误，请把终端的报错信息粘贴给我，我会帮你排查。
+然后运行游戏：
+
+```bash
+python "坦克大战/main.py"
+```
+
+如果你希望通过包入口运行，也可以使用：
+
+```bash
+python -m tankbattle
+```
+
+> 注意：`python -m tankbattle` 入口是为仓库整理而增加的包装入口，它会调用现有的 `坦克大战/main.py`，避免破坏你已经上传的原始文件结构。
+
+## 游戏玩法
+
+- W/A/S/D 或方向键：移动坦克
+- 空格：发射炮弹
+- ESC：打开暂停菜单
+- 在菜单中可选择：继续游戏、重新开始、选择关卡、退出
+- 关卡中要消灭敌方坦克，避免被敌方攻击击中并耗尽生命值
+
+## 代码结构说明
+
+当前仓库保留了一个“最小影响改造”的结构：
+
+```text
+TankBattle/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── pyproject.toml
+├── src/
+│   └── tankbattle/
+│       ├── __init__.py
+│       └── __main__.py
+├── tests/
+│   └── test_import.py
+├── 坦克大战/
+│   ├── main.py
+│   ├── sprite.py
+│   ├── level.py
+│   ├── landform.py
+│   ├── landform_sprite.py
+│   ├── MyTank.png
+│   ├── BadTank.png
+│   ├── ...
+│   └── images/
+└── ...
+```
+
+这种结构的好处是：
+- 你原始项目文件尽量保留不变，避免重命名造成损坏
+- 仓库可以作为公开项目托管
+- 未来如果你需要进一步重构成标准 Python 包，仍然可以继续整理
+
+## 许可
+
+本项目采用 MIT License 开源协议。
+
+## 未来建议
+
+如果你以后继续开发这个项目，建议逐步优化：
+- 将所有资源统一放进 `assets/` 目录
+- 把游戏逻辑拆成更清晰的模块：`player.py`、`enemy.py`、`bullet.py`、`game_state.py`
+- 增加测试（如碰撞检测、生命值、敌人生成逻辑）
+- 统一资源路径，避免相对路径带来的跨平台问题
+- 进一步改造成可安装 Python 包：`pip install -e .`
+
+## 贡献与反馈
+
+如果你希望继续扩展这个项目，欢迎：
+- fork 本仓库
+- 提交改动
+- 通过 Issues 反馈 bug 或提出功能建议
+
+## 结语
+
+这是一个适合继续扩展、重构和学习的坦克大战项目：它既保留了你原始创作的感受，也已经具备 GitHub 公开仓库的基本条件。后续你可以继续为它添加更多关卡、敌人 AI、音效、Boss 或多人联机功能。
